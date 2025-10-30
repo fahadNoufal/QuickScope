@@ -1,0 +1,11 @@
+transformers
+pandas
+matplotlib
+python-box # ConfigBox (access dicts using .(dot) notation
+ensure   #to ensure anottation (return/input type specified)
+fastapi
+uvicorn
+Jinja2
+tqdm
+
+-e .
