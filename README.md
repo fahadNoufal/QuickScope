@@ -12,3 +12,7 @@ QuickScope offers a smarter way to stay informed.  Simply enter any topic — fr
 6. Update the pipeline
 7. Update the main.py
 8. Update the app.py
+
+
+# AWS ECR 
+    repository - 252602636416.dkr.ecr.eu-north-1.amazonaws.com/quick-scope
