@@ -1,11 +1,21 @@
 transformers
 pandas
+pydantic
+torch
 matplotlib
 python-box # ConfigBox (access dicts using .(dot) notation
 ensure   #to ensure anottation (return/input type specified)
 fastapi
 uvicorn
 Jinja2
+logging
 tqdm
+praw
+asyncpraw
+asyncio
+contextlib
+queue
+threading
+pprint
 
 -e .

@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from QuickScope.logging import logger
+from QuickScope.logger.custom_logger import logger
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path

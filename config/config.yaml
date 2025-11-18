@@ -1,0 +1,33 @@
+artifacts_root: artifacts
+
+data_generation:
+  root_dir: artifacts/data_generation
+  sub_reddit: 'all'
+  sort: 'relevance'
+  time_filter: 'week'
+  limit: 3
+  out_dir_path: artifacts/data_generation/relevant_news.csv
+  
+data_ingestion:
+  roots_dir: artifacts/data_ingestion
+  summary_data_path: artifacts/data_ingestion/summary.csv
+  out_dir_path: artifacts/data_ingestion/news_input_output.csv
+  input_data_path: artifacts/data_generation/relevant_news.csv # same as date generation output
+
+
+data_transformation:
+  tokenizer_path: artifacts/finetunedModel
+  input_data_path: artifacts/data_ingestion/news_input_output.csv
+  output_data_path: artifacts/data_ingestion/transformed_dataset.csv
+  sys_prompt: '''You are given topic {topic} and top 3 relevant news headlines along with selected user comments
+                from multiple blog posts. Your task is to create a single, well-structured paragraph 
+                that summarizes all key information in an informative, concise, and cohesive way.'''
+
+model_finetuning:
+  training_dataset: artifacts/data_ingestion/transformed_dataset.csv
+  output_dir: artifacts/training_output_dir
+  finetuned_model_path: artifacts/finetunedModel
+
+prediction:
+  model_path: artifacts/finetunedModel
+  tokenizer_path: artifacts/finetunedModel
