@@ -12,4 +12,5 @@ Jinja2
 python-dotenv
 tqdm
 asyncpraw
+peft
 -e .

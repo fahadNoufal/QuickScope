@@ -1,11 +1,14 @@
 import torch
 from contextlib import asynccontextmanager
 
+from src.QuickScope.logger.custom_logger import logger
+
 from fastapi import FastAPI,Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextStreamer
+from peft import PeftModel
 
 # API connection for live data retrival
 from src.QuickScope.pipeline.stage_01_data_generation import DataGenerationPipeline
@@ -17,16 +20,17 @@ from src.QuickScope.pipeline.stage_05_model_prediction import PredictionPipeline
 async def lifespan(app: FastAPI):
     # setting up the fetching api for live data retrival
     data_gen = DataGenerationPipeline()
-    model_path = "artifacts/finetunedModel"  # Path to your local model directory
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForCausalLM.from_pretrained(
-        model_path,
-        # dtype="float32",   # CPU-friendly dtype
-        device_map="auto"
-    )
+    
+    base = "unsloth/Llama-3.2-1B-Instruct-bnb-4bit"
+    adapter = "artifacts/finetunedModel"  # Path to your local model directory
+    tokenizer = AutoTokenizer.from_pretrained(base)
+    base_model = AutoModelForCausalLM.from_pretrained(base, device_map="auto")
+    model = PeftModel.from_pretrained(base_model, adapter)
+    logger.info("Successfully loaded Model and Tokenizer...")
     app.state.model = model
     app.state.tokenizer = tokenizer
     app.state.data_gen = await data_gen.init_connection()
+    logger.info('models initialized ------------------------------------')
     print('models initialized ------------------------------------')
 
     yield
