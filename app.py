@@ -11,7 +11,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TextStreamer
 from src.QuickScope.pipeline.stage_01_data_generation import DataGenerationPipeline
 from src.QuickScope.pipeline.stage_03_data_transformation import DataTransformationPipeline
 from src.QuickScope.pipeline.stage_05_model_prediction import PredictionPipeline
-# Setting up FastAPI app with CORS middleware
+# Setting up FastAPI app with CORS middleware .
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
