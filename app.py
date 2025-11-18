@@ -25,8 +25,10 @@ async def lifespan(app: FastAPI):
     adapter = "artifacts/finetunedModel"  # Path to your local model directory
     tokenizer = AutoTokenizer.from_pretrained(base)
     base_model = AutoModelForCausalLM.from_pretrained(base, device_map="auto")
+    logger.info("Successfully loaded base Model and Tokenizer...")
+    
     model = PeftModel.from_pretrained(base_model, adapter)
-    logger.info("Successfully loaded Model and Tokenizer...")
+    logger.info("Successfully loaded Pretrained Adapter...")
     app.state.model = model
     app.state.tokenizer = tokenizer
     app.state.data_gen = await data_gen.init_connection()
@@ -39,6 +41,7 @@ async def lifespan(app: FastAPI):
     del app.state.tokenizer
     await app.state.data_gen.close()
     torch.cuda.empty_cache()
+    logger.info("App closed...")
 
 app = FastAPI(lifespan=lifespan)
 
@@ -58,6 +61,7 @@ predictor = PredictionPipeline()
 async def get_news(request:Request,topic:str):
     if topic.strip() =='':
         return {'message':'no topic recieved'}
+    logger.info("Sucessfuly recieved get request...")
     model = request.app.state.model
     tokenizer = request.app.state.tokenizer
     data_gen = request.app.state.data_gen
@@ -71,6 +75,7 @@ async def get_news(request:Request,topic:str):
     transformed_data = data_transformer.main(topic,data)
 
     streaming_response = predictor.main(model,tokenizer,transformed_data)
+    logger.info("Streaming response generated...")
     return StreamingResponse(
         streaming_response,
         # response_generator(model,tokenizer,streamer, message), 
