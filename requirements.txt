@@ -2,21 +2,14 @@ transformers
 pandas
 pydantic
 torch
-python-box # ConfigBox (access dicts using .(dot) notation
-ensure   #to ensure anottation (return/input type specified)
+python-box
+ensure==1.0.2
+mypy-boto3-s3
+PyYAML
 fastapi
 uvicorn
 Jinja2
-logging
-pathlib
-dotenv
+python-dotenv
 tqdm
-praw
 asyncpraw
-asyncio
-contextlib
-queue
-threading
-dataclasses
-
 -e .
