@@ -1,7 +1,6 @@
 transformers
 pandas
 pydantic
-torch
 python-box
 mypy-boto3-s3
 PyYAML
