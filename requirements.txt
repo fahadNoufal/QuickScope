@@ -3,7 +3,6 @@ pandas
 pydantic
 torch
 python-box
-ensure==1.0.2
 mypy-boto3-s3
 PyYAML
 fastapi

@@ -6,6 +6,7 @@ from QuickScope.logger.custom_logger import logger
 class DataTransformationPipeline:
     def __init__(self):
         self.config = ConfigurationManager().get_data_transformation_config()
+        logger.info("DataTransformation Pipeline Initialized...")
     
     def main(self,topic,news):
         dataTransformar = DataTransformation(self.config)

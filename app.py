@@ -16,16 +16,10 @@ from src.QuickScope.pipeline.stage_03_data_transformation import DataTransformat
 from src.QuickScope.pipeline.stage_05_model_prediction import PredictionPipeline
 # Setting up FastAPI app with CORS middleware .
 
-import os
-torch.set_num_threads(os.cpu_count())      # Use all cores
-torch.set_num_interop_threads(os.cpu_count())
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     
-    torch.set_num_threads(os.cpu_count())      # Use all cores
-    torch.set_num_interop_threads(os.cpu_count())
     # setting up the fetching api for live data retrival
     data_gen = DataGenerationPipeline()
     
@@ -43,8 +37,6 @@ async def lifespan(app: FastAPI):
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
         device_map="auto",  # Let accelerate handle device mapping, falling back to CPU
-        dtype="float32",
-        load_in_4bit=False   # Avoid bitsandbytes 4-bit load to prevent GPU-only tensors
     )
     
     logger.info("Successfully loaded Pretrained Adapter...")
