@@ -77,10 +77,6 @@ async def get_news(request:Request,topic:str):
     tokenizer = request.app.state.tokenizer
     data_gen = request.app.state.data_gen
     
-    
-    # streamer = CustomStreamer(streamer_queue, tokenizer, True)
-    
-    # news = await dataset.get_news(topic)
     data = await data_gen.main(topic)
     
     transformed_data = data_transformer.main(topic,data)
