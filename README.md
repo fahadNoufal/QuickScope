@@ -15,4 +15,7 @@ QuickScope offers a smarter way to stay informed.  Simply enter any topic — fr
 
 
 # AWS ECR 
-    repository - 252602636416.dkr.ecr.eu-north-1.amazonaws.com/quick-scope
+    repository - 252602636416.dkr.ecr.us-east-1.amazonaws.com/quickscope
+
+
+
